@@ -1,0 +1,37 @@
+import psutil
+import time
+import clr
+clr.AddReference(r'C:\path\to\lib.dll')
+import serial
+ser = serial.Serial()
+ser.baudrate = 9600
+ser.port = 'COM3'
+ser.timeout = 0
+from OpenHardwareMonitor.Hardware import Computer
+c = Computer()
+c.GPUEnabled = True
+c.Open()
+ser.open()
+ser.reset_input_buffer()
+ser.reset_output_buffer()
+while True:
+    cpuL = int(psutil.cpu_percent()*255/100)
+    ramL = int(psutil.virtual_memory().percent*255/100)
+    c.Hardware[0].Update()
+    gpuL = int(c.Hardware[0].Sensors[6].get_Value()*255/100)
+    c.Hardware[0].Update()
+    gpuT = int(c.Hardware[0].Sensors[0].get_Value()*2.83-28.3)
+    c.Hardware[0].Update()
+    gpuM = int(c.Hardware[0].Sensors[7].get_Value()*255/100)
+    c.Hardware[0].Update()
+    gpuF = int(c.Hardware[0].Sensors[8].get_Value()*255/100)
+    a = (cpuL, ramL, gpuL, gpuT, gpuM, gpuF)
+    for i in a:
+        if i >= 0:
+            val = i.to_bytes(1)
+            ser.write(val)
+        else:
+            ipos = abs(i)
+            val = ipos.to_bytes(1)
+            ser.write(val)
+    time.sleep(.1)

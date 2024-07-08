@@ -1,0 +1,26 @@
+int ValArray[6];
+int PWM[6]={3,5,6,9,10,11};
+unsigned long T = 0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop(){
+  if(Serial.available()>5){
+    for(int i=0; i<6; i++){
+      ValArray[i] = Serial.read();
+      analogWrite(PWM[i], ValArray[i]);
+    }
+    T = millis();
+  }
+  if(millis()-T>5000){
+    for(int i=0; i<6; i++){
+      analogWrite(PWM[i], 0);
+    }
+    while(Serial.available()>0){
+      ValArray[0] = Serial.read();
+    }
+    T = millis();
+  }
+}
