@@ -1,0 +1,23 @@
+First we will setup the python script on your pc. 
+You first need to install python on your computer and to install some libraries. Here are the ones needed : 
+- psutil 
+- pythonnet 
+- pyserial 
+Another thing to setup in the python script is the path to the openHardwareMonitorKib.dll that absolutely required for this to work. 
+Go to the open hardware monitor website and dowload the utility ( $ https://openhardwaremonitor.org/downloads/ $ ). Navigating the zip file you will find a file called "OpenHardwareMonitoreLib.dll". Take it and place it in any folder of your computer (presumably the one where your python script is saved). 
+You then need to add the path to the library in the script by replacing "C:\path\to\library.dll" in the python code below with the actual path to the library on your computer. 
+After that you need to set the correct com port to wich your arduino is plugged, you can get it in the arduino IDE. 
+For convenience, you can set your python script to launch with your session and without a visible console with these steps : 
+- Change your python script extension from .py to .pyw 
+- Press Windows + r, type "shell:startup", press enter and place here a shortcut to your script 
+ 
+For the arduino just upload the code on it and plug the voltmeters to the corresponding PWM pins. From the lowest pin number to the highest the pins corresponds to the following metrics : 
+Cpu usage, Ram load, Gpu usage, Gpu temps, Gpu memory load, Gpu fan usage 
+The PWM pin numbers for the R4 minima are 3; 5; 6; 9; 10 and 11. Please check if they are similar on your board or change them accordingly in the PWM array of the arduino code. 
+Connect each voltmeters to the ground on the board and plug the arduino to the computer. 
+Everything should be good to go now ! 
+ 
+You can print some custom scales for the voltmeters to show percent and not voltage for a cleaner look, I added a pdf file with the scales that I used but I can't guarantee that they'll fit on your voltmeters. 
+If you want to monitor other or more values feel free to edit the programs, check the psutil documentation for some additional functions. 
+I also provided an additional file listing the different gpu sensors and what they are monitoring for the Open Hardware Monitor library. 
+Concerning the voltmeter stand I made myself using a simple piece of wood, I can't provide a template for the wood cutout because i didn't draw any plan and it is anyway too dependent on the type of voltmeters you will get. 
