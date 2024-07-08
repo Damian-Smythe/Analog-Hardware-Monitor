@@ -1,0 +1,10 @@
+This project aims to give the ability to monitor your hardware usage without the need to open task manager. 
+The concept is really simple, the python script will run on your computer, collect the data, send them to the arduino that will display them through the voltmeters using PWM, rinse and repeat. 
+The program monitors 6 variables : 
+- Cpu usage in % 
+- Ram load in % 
+- Gpu usage in % 
+- Gpu temperature, display between 10° and 90° C 
+- Gpu memory load in % 
+- Gpu fan usage in % 
+Please note that you must use 5V DC analogic voltmeters as it is the simplest solution with the PWM, Anything else will  either not work or show wrong value. 
